@@ -1,0 +1,88 @@
+package org.example;
+
+import org.example.modelo.Libro;
+import org.example.persistencia.LibroDAO;
+
+import java.sql.SQLException;
+
+public class Main {
+    public static void main(String[] args) {
+        // DemoLibroDB demo = new DemoLibroDB();
+
+        //Libro libro = new Libro(0,"El juego", "Desconocido");
+        // if (demo.insertarLibro(libro)){
+        //System.out.println("Se inserto correctamente");
+        //}else {
+        //    System.out.println("No se inserto");
+        //}
+
+//ejemplos
+       /* System.out.println(demo.buscarLibroPorID(15));
+
+        System.out.println("----------");
+
+        for (Libro tmp: demo.obtenerTodos()){
+            System.out.println("Libros" + tmp);
+            System.out.println("Titulo "+ tmp.getTitulo());
+*/
+
+        //  }
+
+
+        LibroDAO ldao = new LibroDAO();
+        System.out.println("\n------Insertar-----\n");
+        Libro libro = new Libro(1, "El perfume", "Patrick Suskin");
+
+        try {
+            if (ldao.insertar(libro)) {
+                System.out.println("Se inserto correctamente ");
+            } else {
+                System.out.println("No se pudo insertar correctamente");
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error al insertar");
+        }
+
+        System.out.println("\n------Update-------\n");
+        LibroDAO ldao1 = new LibroDAO();
+        Libro libro1 = new Libro(1, "El perfume", "Patrick Suskin");
+
+        try {
+            if (ldao.update(libro)) {
+                System.out.println("Se modifico correctamente ");
+            } else {
+                System.out.println("No se pudo modificar correctamente");
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error al actualizar");
+        }
+
+        System.out.println("\n-----Detele------\n");
+        try {
+            if (ldao.delete("27")) {
+                System.out.println("Se elimino correctamente");
+            } else {
+                System.out.println("No se pudo eliminar");
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error al eliminar");
+            System.out.println(sqle.getMessage());
+        }
+
+        System.out.println("----Enseña los datos-----");
+        try {
+            Libro res = (Libro) ldao.buscarPorID("1");
+            System.out.println(res);
+            for (Object lib:
+                 ldao.obtenerTodo()) {
+                System.out.println((Libro)lib);
+
+            }
+
+        } catch (SQLException sqle) {
+            System.out.println("Error al eliminar");
+            System.out.println(sqle.getMessage());
+
+        }
+    }
+}
